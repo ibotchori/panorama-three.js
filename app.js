@@ -5,6 +5,7 @@ const renderer = new THREE.WebGLRenderer();
 const controls = new THREE.OrbitControls(camera, renderer.domElement)
 controls.rotateSpeed = 0.2 // <-- camera totate speed
 controls.enableZoom = false // <-- disable camera zoom
+controls.autoRotate = true // <-- enable auto rotate
 
 
 //controls.update() must be called after any manual changes to the camera's transform
@@ -33,7 +34,7 @@ function animate() {
     requestAnimationFrame(animate);
 
     // required if controls.enableDamping or controls.autoRotate are set to true
-    // controls.update() // <-- to turn on auto rotate
+    controls.update() // <-- to turn on auto rotate
     renderer.render(scene, camera);
 
 }
