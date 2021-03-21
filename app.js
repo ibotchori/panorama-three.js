@@ -19,6 +19,8 @@ const geometry = new THREE.SphereGeometry(50, 32, 32); // <-- 3d sphere paramete
 const textureLoader = new THREE.TextureLoader()
 // load a resource
 const texture = textureLoader.load('image01.jpg') // <-- resource URL
+texture.wrapS = THREE.RepeatWrapping  // <-- remove mirror effect
+texture.repeat.x = -1 // <-- remove mirror effect 
 const material = new THREE.MeshBasicMaterial({
     map: texture,
     side: THREE.DoubleSide
