@@ -3,6 +3,7 @@ const camera = new THREE.PerspectiveCamera(60, 1.6, 0.1, 200);
 const renderer = new THREE.WebGLRenderer();
 
 const controls = new THREE.OrbitControls(camera, renderer.domElement)
+controls.rotateSpeed = 0.2 // <-- camera totate speed
 
 
 //controls.update() must be called after any manual changes to the camera's transform
