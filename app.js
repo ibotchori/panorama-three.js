@@ -39,3 +39,10 @@ function animate() {
 
 }
 animate() // <-- runs after page refresh
+
+function onResize() { // function for page resize 
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+}
+window.addEventListener('resize', onResize) // runs onResize function on resize event
