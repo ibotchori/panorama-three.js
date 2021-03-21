@@ -9,7 +9,7 @@ controls.enableZoom = false // <-- disable camera zoom
 
 
 //controls.update() must be called after any manual changes to the camera's transform
-camera.position.set(30, 0, 0); // <-- camera position (x, y, z)
+camera.position.set(-30, 0, 0); // <-- camera position (x, y, z)
 controls.update();
 
 
