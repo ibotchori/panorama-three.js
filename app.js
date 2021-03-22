@@ -104,8 +104,7 @@ function onClick(e) { // <-- function for catch mouse click position
     } */
 }
 
-function onMouseMove(e) {
-    // <-- function for catch mouse click position
+function onMouseMove(e) {// <-- function for catch mouse movement
     let mouse = new THREE.Vector2(
         (e.clientX / window.innerWidth) * 2 - 1,
         - (e.clientY / window.innerHeight) * 2 + 1
