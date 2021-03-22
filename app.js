@@ -124,6 +124,7 @@ function onMouseMove(e) {// <-- function for catch mouse movement
             tooltip.style.top = ((-1 * p.y + 1) * window.innerHeight / 2) + 'px' // calc y position for sprite's information bar
             tooltip.style.left = ((p.x + 1) * window.innerWidth / 2) + 'px' // calc x position for sprite's information bar
             tooltip.classList.add('is-active') // add class to sprite's information bar 
+            tooltip.innerHTML = intersect.object.name // to give own name to sprite's information bar 
             tooltipActive = true
             foundSprite = true
         }
