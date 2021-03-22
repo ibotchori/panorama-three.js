@@ -39,12 +39,13 @@ scene.add(sphere);
 
 /****   Tooltip   ****/
 
-function addTooltip(position) {
+function addTooltip(position, name) {
     let spriteMap = new THREE.TextureLoader().load('info.png');
     let spriteMaterial = new THREE.SpriteMaterial({
         map: spriteMap
     });
     let sprite = new THREE.Sprite(spriteMaterial);
+    sprite.name = name
     // let position = new THREE.Vector3(10, 0, 0) // <-- sprite position (x, y, z)
     sprite.position.copy(position.clone().normalize().multiplyScalar(30)) // <-- set sprite position
     sprite.scale.multiplyScalar(2) // increase sprite size to 2
@@ -85,6 +86,13 @@ function onClick(e) { // <-- function for catch mouse click position
     let rayCaster = new THREE.Raycaster()
     rayCaster.setFromCamera(mouse, camera)
 
+    let intersects = rayCaster.intersectObjects(scene.children)
+    intersects.forEach(function (intersect) { // <-- function for catch when sprite object is clicked
+        if (intersect.object.type === 'Sprite') {
+            console.log(intersect.object.name)
+        }
+    })
+
 
     /* // method to catch mouse click position
     let intersect = rayCaster.intersectObject(sphere)
@@ -94,7 +102,7 @@ function onClick(e) { // <-- function for catch mouse click position
     } */
 }
 
-addTooltip(new THREE.Vector3(43.33700726090634, -23.96948315971388, 5.274735906805975))
+addTooltip(new THREE.Vector3(43.33700726090634, -23.96948315971388, 5.274735906805975), "Enter") // <-- spprite position & sprite name 
 
 window.addEventListener('resize', onResize) // runs onResize function on resize event
 container.addEventListener('click', onClick) // runs onClick function on click event
