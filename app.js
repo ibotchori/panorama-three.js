@@ -1,4 +1,9 @@
 const container = document.body  // variable for on click (Raycasting is used for mouse picking)
+const tooltip = document.querySelector('.tooltip') // information bar for sprite
+let tooltipActive = false
+
+
+
 
 /****   Scene & Controls   ****/
 
@@ -111,13 +116,22 @@ function onMouseMove(e) {// <-- function for catch mouse movement
     )
 
     rayCaster.setFromCamera(mouse, camera)
-
+    let foundSprite = false
     let intersects = rayCaster.intersectObjects(scene.children)
     intersects.forEach(function (intersect) { // <-- function for catch when sprite object is hover
-        if (intersect.object.type === 'Sprite') {
-            console.log(intersect.object.name)
+        if (intersect.object.type === 'Sprite') {  // if sprite is hover
+            let p = intersect.object.position.clone().project(camera) // <-- get sprite position (object)
+            tooltip.style.top = ((-1 * p.y + 1) * window.innerHeight / 2) + 'px' // calc y position for sprite's information bar
+            tooltip.style.left = ((p.x + 1) * window.innerWidth / 2) + 'px' // calc x position for sprite's information bar
+            tooltip.classList.add('is-active') // add class to sprite's information bar 
+            tooltipActive = true
+            foundSprite = true
         }
     })
+
+    if (foundSprite === false && tooltipActive) { // if sprite is hover of
+        tooltip.classList.remove('is-active')   // remove is-active class
+    }
 }
 
 addTooltip(new THREE.Vector3(43.33700726090634, -23.96948315971388, 5.274735906805975), "Enter") // <-- spprite position & sprite name 

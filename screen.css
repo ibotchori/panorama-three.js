@@ -4,7 +4,7 @@ body, html {
     margin: 0;
     overflow: hidden;
     font-family: serif;
-    color: rgba(0, 0, 0, .87);
+    color: rgba(0, 0, 0, .77);
 }
 
 .tooltip {
@@ -13,4 +13,12 @@ body, html {
     top: 0;
     left: 0;
     padding: 10px;
+    opacity: 0;
+    transform: translate3d(-50%, -100%, 0);
+    transition: opacity .3s, transform .3s;
+}
+
+.tooltip.is-active {
+    opacity: 1;
+    transform: translate3d(-50%, calc(-100% - 25px), 0);
 }
