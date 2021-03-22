@@ -47,7 +47,7 @@ function addTooltip(position) {
     let sprite = new THREE.Sprite(spriteMaterial);
     // let position = new THREE.Vector3(10, 0, 0) // <-- sprite position (x, y, z)
     sprite.position.copy(position.clone().normalize().multiplyScalar(30)) // <-- set sprite position
-
+    sprite.scale.multiplyScalar(2) // increase sprite size to 2
     scene.add(sprite);
 }
 
