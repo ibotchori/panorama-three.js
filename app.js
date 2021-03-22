@@ -1,3 +1,5 @@
+
+
 const container = document.body  // variable for on click (Raycasting is used for mouse picking)
 const tooltip = document.querySelector('.tooltip') // information bar for sprite
 let tooltipActive = false
@@ -125,13 +127,24 @@ function onMouseMove(e) {// <-- function for catch mouse movement
             tooltip.style.left = ((p.x + 1) * window.innerWidth / 2) + 'px' // calc x position for sprite's information bar
             tooltip.classList.add('is-active') // add class to sprite's information bar 
             tooltip.innerHTML = intersect.object.name // to give own name to sprite's information bar 
-            tooltipActive = true
+            spriteActive = intersect.object
             foundSprite = true
+            TweenLite.to(intersect.object.scale, 0.3, { // add animation on sprite
+                x: 3,
+                y: 3,
+                z: 3
+            })
         }
     })
 
-    if (foundSprite === false && tooltipActive) { // if sprite is hover of
+    if (foundSprite === false && spriteActive) { // if sprite is hover of
         tooltip.classList.remove('is-active')   // remove is-active class
+        TweenLite.to(spriteActive.scale, 0.3, { // remove animation from sprite
+            x: 2,
+            y: 2,
+            z: 2
+        })
+        spriteActive = false
     }
 }
 
