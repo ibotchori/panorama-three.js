@@ -1,3 +1,5 @@
+/****   Scene & Controls   ****/
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, 1.6, 0.1, 200);
 const renderer = new THREE.WebGLRenderer();
@@ -13,12 +15,14 @@ camera.position.set(-30, 0, 0); // <-- camera position (x, y, z)
 controls.update();
 
 
+
+
+/****   Sphere   ****/
+
 const geometry = new THREE.SphereGeometry(50, 32, 32); // <-- 3d sphere parameters
 
-// instantiate a loader
-const textureLoader = new THREE.TextureLoader()
-// load a resource
-const texture = textureLoader.load('image01.jpg') // <-- resource URL
+// instantiate a loader & load a resource
+const texture = new THREE.TextureLoader().load('image01.jpg') // <-- resource URL
 texture.wrapS = THREE.RepeatWrapping  // <-- remove mirror effect
 texture.repeat.x = -1 // <-- remove mirror effect 
 const material = new THREE.MeshBasicMaterial({
@@ -28,6 +32,23 @@ const material = new THREE.MeshBasicMaterial({
 const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
 
+
+
+
+/****   Tooltip   ****/
+const spriteMap = new THREE.TextureLoader().load('info.png');
+const spriteMaterial = new THREE.SpriteMaterial({
+    map: spriteMap
+});
+const sprite = new THREE.Sprite(spriteMaterial);
+const position = new THREE.Vector3(10, 0, 0) // <-- sprite position (x, y, z)
+sprite.position.copy(position) // <-- set sprite position
+
+scene.add(sprite);
+
+
+
+/****   Render   ****/
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
