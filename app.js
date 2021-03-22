@@ -1,3 +1,5 @@
+const container = document.body  // variable for on click (Raycasting is used for mouse picking)
+
 /****   Scene & Controls   ****/
 
 const scene = new THREE.Scene();
@@ -11,7 +13,7 @@ controls.enableZoom = false // <-- disable camera zoom
 
 
 //controls.update() must be called after any manual changes to the camera's transform
-camera.position.set(-30, 0, 0); // <-- camera position (x, y, z)
+camera.position.set(-1, 0, 0); // <-- camera position (x, y, z)
 controls.update();
 
 
@@ -36,15 +38,19 @@ scene.add(sphere);
 
 
 /****   Tooltip   ****/
-const spriteMap = new THREE.TextureLoader().load('info.png');
-const spriteMaterial = new THREE.SpriteMaterial({
-    map: spriteMap
-});
-const sprite = new THREE.Sprite(spriteMaterial);
-const position = new THREE.Vector3(10, 0, 0) // <-- sprite position (x, y, z)
-sprite.position.copy(position) // <-- set sprite position
 
-scene.add(sprite);
+function addTooltip(position) {
+    let spriteMap = new THREE.TextureLoader().load('info.png');
+    let spriteMaterial = new THREE.SpriteMaterial({
+        map: spriteMap
+    });
+    let sprite = new THREE.Sprite(spriteMaterial);
+    // let position = new THREE.Vector3(10, 0, 0) // <-- sprite position (x, y, z)
+    sprite.position.copy(position.clone().normalize().multiplyScalar(30)) // <-- set sprite position
+
+    scene.add(sprite);
+}
+
 
 
 
@@ -68,4 +74,27 @@ function onResize() { // function for page resize
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
 }
+
+//  Raycasting is used for mouse picking (working out what objects in the 3d space the mouse is over) amongst other things.
+function onClick(e) { // <-- function for catch mouse click position
+    let mouse = new THREE.Vector2(
+        (e.clientX / window.innerWidth) * 2 - 1,
+        - (e.clientY / window.innerHeight) * 2 + 1
+    )
+    // console.log(mouse) // < to catch mouse click position
+    let rayCaster = new THREE.Raycaster()
+    rayCaster.setFromCamera(mouse, camera)
+
+
+    /* // method to catch mouse click position
+    let intersect = rayCaster.intersectObject(sphere)
+    if (intersect.length > 0) {
+        console.log(intersect[0].point) // < to catch mouse click position
+        addTooltip(intersect[0].point)
+    } */
+}
+
+addTooltip(new THREE.Vector3(43.33700726090634, -23.96948315971388, 5.274735906805975))
+
 window.addEventListener('resize', onResize) // runs onResize function on resize event
+container.addEventListener('click', onClick) // runs onClick function on click event
