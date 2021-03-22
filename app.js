@@ -77,13 +77,15 @@ function onResize() { // function for page resize
 }
 
 //  Raycasting is used for mouse picking (working out what objects in the 3d space the mouse is over) amongst other things.
+const rayCaster = new THREE.Raycaster()
+
 function onClick(e) { // <-- function for catch mouse click position
     let mouse = new THREE.Vector2(
         (e.clientX / window.innerWidth) * 2 - 1,
         - (e.clientY / window.innerHeight) * 2 + 1
     )
     // console.log(mouse) // < to catch mouse click position
-    let rayCaster = new THREE.Raycaster()
+
     rayCaster.setFromCamera(mouse, camera)
 
     let intersects = rayCaster.intersectObjects(scene.children)
@@ -102,7 +104,25 @@ function onClick(e) { // <-- function for catch mouse click position
     } */
 }
 
+function onMouseMove(e) {
+    // <-- function for catch mouse click position
+    let mouse = new THREE.Vector2(
+        (e.clientX / window.innerWidth) * 2 - 1,
+        - (e.clientY / window.innerHeight) * 2 + 1
+    )
+
+    rayCaster.setFromCamera(mouse, camera)
+
+    let intersects = rayCaster.intersectObjects(scene.children)
+    intersects.forEach(function (intersect) { // <-- function for catch when sprite object is hover
+        if (intersect.object.type === 'Sprite') {
+            console.log(intersect.object.name)
+        }
+    })
+}
+
 addTooltip(new THREE.Vector3(43.33700726090634, -23.96948315971388, 5.274735906805975), "Enter") // <-- spprite position & sprite name 
 
 window.addEventListener('resize', onResize) // runs onResize function on resize event
 container.addEventListener('click', onClick) // runs onClick function on click event
+container.addEventListener('mousemove', onMouseMove) // // runs onMouseMove function on mousemove event
