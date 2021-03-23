@@ -25,7 +25,7 @@ class Scene {
             map: texture,
             side: THREE.DoubleSide
         });
-        material.transparent = true
+        //material.transparent = true
         this.sphere = new THREE.Mesh(geometry, material);
         this.scene.add(this.sphere);
         this.points.forEach(this.addTooltip.bind(this))
@@ -127,7 +127,7 @@ controls.enableZoom = false // <-- disable camera zoom
 
 
 //controls.update() must be called after any manual changes to the camera's transform
-camera.position.set(-30, 0, 0); // <-- camera position (x, y, z)
+camera.position.set(-10, 0, 0); // <-- camera position (x, y, z)
 controls.update();
 
 
@@ -135,17 +135,40 @@ controls.update();
 
 /****   Sphere   ****/
 
-let s = new Scene('image01.jpg')
-let s2 = new Scene('image02.jpg')
+let s = new Scene('home.jpeg')
+let s2 = new Scene('port2.jpeg')
+let s3 = new Scene('hotel.jpeg')
+let s4 = new Scene('hotelroom.jpeg')
 s.addPoint({
-    position: new THREE.Vector3(43.33700726090634, -23.96948315971388, 5.274735906805975),
-    name: 'Enter',
+    position: new THREE.Vector3(2, -1.5, 1.2),
+    name: 'ნავსადგური',
     scene: s2
 })
+s.addPoint({
+    position: new THREE.Vector3(5, -0.5, -3.5),
+    name: 'სასტუმროს ნომერი',
+    scene: s3
+})
 s2.addPoint({
-    position: new THREE.Vector3(1, 1, 0),
-    name: 'Exit',
+    position: new THREE.Vector3(1, 0.5, 0),
+    name: 'უკან დაბრუნება',
     scene: s
+})
+
+s3.addPoint({
+    position: new THREE.Vector3(1, 0.1, -0.5),
+    name: 'საძინებელი ოთახი',
+    scene: s4
+})
+s3.addPoint({
+    position: new THREE.Vector3(1, 0.1, 1.3),
+    name: 'გარეთ გასვლა',
+    scene: s
+})
+s4.addPoint({
+    position: new THREE.Vector3(1, 0.1, 0.5),
+    name: 'მისაღებში დაბრუნება',
+    scene: s3
 })
 s.createScene(scene)
 
@@ -165,7 +188,6 @@ document.body.appendChild(renderer.domElement);
 
 function animate() {
     requestAnimationFrame(animate);
-
     // required if controls.enableDamping or controls.autoRotate are set to true
     // controls.update() // <-- to turn on auto rotate
     renderer.render(scene, camera);
