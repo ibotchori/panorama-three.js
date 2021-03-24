@@ -6,12 +6,12 @@ let tooltipActive = false
 
 
 class Scene {
-    constructor(image) {
+    constructor(image, spriteMap) {
         this.image = image
         this.points = []
         this.sprites = []
         this.scene = null
-
+        this.spriteMap = spriteMap
     }
     createScene(scene) {
         this.scene = scene
@@ -41,7 +41,7 @@ class Scene {
 
 
     addTooltip(point) {
-        let spriteMap = new THREE.TextureLoader().load('info.png');
+        let spriteMap = new THREE.TextureLoader().load(this.spriteMap)
         let spriteMaterial = new THREE.SpriteMaterial({
             map: spriteMap
         });
@@ -135,10 +135,11 @@ controls.update();
 
 /****   Sphere   ****/
 
-let s = new Scene('home.jpeg')
-let s2 = new Scene('port2.jpeg')
+let s = new Scene('home.jpeg', 'info2.jpg')
+let s2 = new Scene('port2.jpeg', 'info.png')
 let s3 = new Scene('hotel.jpeg')
 let s4 = new Scene('hotelroom.jpeg')
+// spriteMap = new THREE.TextureLoader().load('info2.jpg');
 s.addPoint({
     position: new THREE.Vector3(2, -1.5, 1.2),
     name: 'ნავსადგური',
