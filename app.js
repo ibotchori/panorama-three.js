@@ -6,12 +6,12 @@ let tooltipActive = false
 
 
 class Scene {
-    constructor(image, spriteMap) {
+    constructor(image) {
         this.image = image
         this.points = []
         this.sprites = []
         this.scene = null
-        this.spriteMap = spriteMap
+        // this.spriteMap = spriteMap
     }
     createScene(scene) {
         this.scene = scene
@@ -41,7 +41,8 @@ class Scene {
 
 
     addTooltip(point) {
-        let spriteMap = new THREE.TextureLoader().load(this.spriteMap)
+        //let spriteMap = new THREE.TextureLoader().load(this.spriteMap)
+        let spriteMap = new THREE.TextureLoader().load(point.icon)
         let spriteMaterial = new THREE.SpriteMaterial({
             map: spriteMap
         });
@@ -135,41 +136,47 @@ controls.update();
 
 /****   Sphere   ****/
 
-let s = new Scene('home.jpeg', 'info2.jpg')
-let s2 = new Scene('port2.jpeg', 'info.png')
+let s = new Scene('home.jpeg')
+let s2 = new Scene('port2.jpeg')
 let s3 = new Scene('hotel.jpeg')
 let s4 = new Scene('hotelroom.jpeg')
 // spriteMap = new THREE.TextureLoader().load('info2.jpg');
 s.addPoint({
     position: new THREE.Vector3(2, -1.5, 1.2),
     name: 'ნავსადგური',
-    scene: s2
+    scene: s2,
+    icon: 'info.png'
 })
 s.addPoint({
     position: new THREE.Vector3(5, -0.5, -3.5),
     name: 'სასტუმროს ნომერი',
-    scene: s3
+    scene: s3,
+    icon: 'info2.jpg'
 })
 s2.addPoint({
     position: new THREE.Vector3(1, 0.5, 0),
     name: 'უკან დაბრუნება',
-    scene: s
+    scene: s,
+    icon: 'info.png'
 })
 
 s3.addPoint({
     position: new THREE.Vector3(1, 0.1, -0.5),
     name: 'საძინებელი ოთახი',
-    scene: s4
+    scene: s4,
+    icon: 'info.png'
 })
 s3.addPoint({
     position: new THREE.Vector3(1, 0.1, 1.3),
     name: 'გარეთ გასვლა',
-    scene: s
+    scene: s,
+    icon: 'info.png'
 })
 s4.addPoint({
     position: new THREE.Vector3(1, 0.1, 0.5),
     name: 'მისაღებში დაბრუნება',
-    scene: s3
+    scene: s3,
+    icon: 'info.png'
 })
 s.createScene(scene)
 
